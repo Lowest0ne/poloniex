@@ -1,5 +1,7 @@
 # Poloniex
 
+[![Gem Version](https://badge.fury.io/rb/poloniex.png)](http://badge.fury.io/rb/poloniex)
+
 This gem provides a ruby wrapper to the poloniex.com api: [Link](https://poloniex.com/api)
 ## Installation
 
