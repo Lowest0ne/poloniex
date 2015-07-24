@@ -19,5 +19,9 @@ module Poloniex
       response = client.get('returnCurrencies')
       response.map{ |e| new(e) } if response.present?
     end
+
+    def self.by_name(currency)
+      all.detect{ |e| e.name == currency }
+    end
   end
 end

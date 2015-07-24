@@ -17,7 +17,7 @@ module Poloniex
     attr_reader :id, :currency, :address, :amount, :timestamp, :status, :ip, :txid, :raw
 
     def initialize(attrs = {})
-      @id = attrs['withdrawalNumber']
+      @id = attrs['withdrawalNumber'].to_s
       @currency = attrs['currency']
       @address = attrs['address']
       @amount = attrs['amount']
@@ -33,6 +33,10 @@ module Poloniex
 
     def self.last_withdrawals
       DepositWithdrawal.all(Time.now - TIME_SHIFTS[:small], Time.now).withdrawals.map { |e| new(e) }
+    end
+
+    def self.last_withdrawals_by_address(address)
+      last_withdrawals.map { |e| e if e.address == address }.last
     end
 
     private
