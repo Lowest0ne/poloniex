@@ -10,6 +10,15 @@ module Poloniex
       all.detect{ |e| e.txid == txid }
     end
 
+    def self.last_bunch_for_short_period
+      all(Time.now - TIME_SHIFTS[:small], Time.now)
+    end
+
+    def self.last_bunch_for_short_period_by_address(address)
+      last_bunch_for_short_period.map { |e| e if e.address == address }
+    end
+
+
     def self.by_destination(address)
       all.map{ |e| e if e.address == address }
     end

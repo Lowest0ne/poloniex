@@ -14,8 +14,8 @@ module Poloniex
       @raw = attrs
     end
 
-    def self.all
-      DepositWithdrawal.all.deposits.map { |e| new(e) }
+    def self.all(start_time = Time.now - TIME_SHIFTS[:big], end_time = Time.now)
+      Transaction.all(start_time, end_time).deposits.map { |e| new(e) }
     end
   end
 end
