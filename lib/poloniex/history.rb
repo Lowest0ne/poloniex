@@ -27,9 +27,7 @@ module Poloniex
     end
 
     def self.by_order_number(order_number)
-      result = nil
-      all.each{ |key, value| result = value.detect{ |order| order.order_number == order_number } }
-      result
+      all.map{ |key, value| value }.flatten.detect{ |order| order.order_number == order_number }
     end
   end
 end
