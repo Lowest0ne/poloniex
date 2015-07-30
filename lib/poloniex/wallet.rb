@@ -1,6 +1,6 @@
 module Poloniex
   class Wallet < BasePoloniex
-    attr_reader :currency, :balance, :raw
+    attr_reader :currency, :balance, :raw, :error
     def initialize(attrs = {})
       @currency = attrs.first
       @balance = attrs.last

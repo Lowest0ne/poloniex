@@ -2,7 +2,7 @@ module Poloniex
   class Currency < BasePoloniex
     # "1CR", {"name"=>"1CRedit", "maxDailyWithdrawal"=>"10000.00000000", "txFee"=>"0.01000000", "minConf"=>3, "disabled"=>0, "delisted"=>0}]
 
-    attr_reader :name, :full_name, :max_daily_withdrawal, :fee, :min_conf, :disabled, :delisted, :raw
+    attr_reader :name, :full_name, :max_daily_withdrawal, :fee, :min_conf, :disabled, :delisted, :raw, :error
 
     def initialize(attrs = {})
       @name = attrs.first

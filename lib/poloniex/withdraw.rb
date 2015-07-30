@@ -1,6 +1,6 @@
 module Poloniex
   class Withdraw < BasePoloniex
-    attr_reader :error, :success, :transaction_id, :raw
+    attr_reader :error, :success, :transaction_id, :raw, :error
 
     def initialize(attrs = {})
       @error = attrs['error']

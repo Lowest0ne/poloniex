@@ -18,7 +18,6 @@ module Poloniex
       last_bunch_for_short_period.map { |e| e if e.address == address }
     end
 
-
     def self.by_destination(address)
       all.map{ |e| e if e.address == address }
     end
