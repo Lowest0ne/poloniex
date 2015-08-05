@@ -31,6 +31,10 @@ module Poloniex
       Transaction.all(start_time, end_time).withdrawals.map { |e| new(e) }
     end
 
+    def self.by_id(transaction_id)
+      all.detect { |e| e.id == transaction_id }
+    end
+
     private
 
     def normalize_status(status)

@@ -11,7 +11,7 @@ module Poloniex
     end
 
     def self.last_bunch_for_short_period
-      all(Time.now - TIME_SHIFTS[:small], Time.now)
+      all(Time.now - TIME_SHIFTS[:big], Time.now)
     end
 
     def self.last_bunch_for_short_period_by_address(address)
