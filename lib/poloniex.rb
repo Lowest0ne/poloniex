@@ -5,6 +5,7 @@ module Poloniex
   autoload :Configuration,    'poloniex/configuration'
   autoload :Wallet,           'poloniex/wallet'
   autoload :Market,           'poloniex/market'
+  autoload :MarketVolume,     'poloniex/market_volume'
   autoload :OrderBook,        'poloniex/order_book'
   autoload :Withdraw,         'poloniex/withdraw'
   autoload :Withdrawal,       'poloniex/transactions/withdrawal'

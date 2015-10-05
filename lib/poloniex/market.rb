@@ -16,13 +16,23 @@ module Poloniex
       @raw = attrs
     end
 
-    def self.all
-      response = client.get('returnTicker')
-      response.map { |e| new(e) } if response.present?
-    end
+    class << self
+      def all
+        response = download_ticker
+        response.map { |e| new(e) } if response.present?
+      end
 
-    def self.by_pair(pair)
-      all.detect { |e| e.name == normalize_pair(pair) }
+      def by_pair(pair)
+        response = download_ticker
+        return new([pair, response[pair]]) if response[pair].present?
+        nil
+      end
+
+      private
+
+      def download_ticker
+        client.get('returnTicker')
+      end
     end
   end
 end
