@@ -1,5 +1,4 @@
 require "poloniex/version"
-
 require 'rest-client'
 require 'openssl'
 require 'addressable/uri'
@@ -24,6 +23,10 @@ module Poloniex
     end
   end
 
+  def self.get_all_daily_exchange_rates( currency_pair )
+    res = get 'returnChartData', currencyPair: currency_pair, period: 86400,  start: 0, :end => Time.now.to_i
+  end
+
   def self.ticker
     get 'returnTicker'
   end
@@ -36,10 +39,22 @@ module Poloniex
     get 'returnOrderBook', currencyPair: currency_pair
   end
 
+  def self.active_loans
+    post 'returnActiveLoans'
+  end
+
   def self.balances
     post 'returnBalances'
   end
   
+  def self.lending_history( start = 0, end_time = Time.now_to_i )
+    post 'returnLendingHistory', start: start, :end => end_time
+  end
+
+  def self.currencies
+    get 'returnCurrencies'
+  end
+
   def self.complete_balances
     post 'returnCompleteBalances'
   end
@@ -48,8 +63,8 @@ module Poloniex
     post 'returnOpenOrders', currencyPair: currency_pair
   end
 
-  def self.trade_history( currency_pair )
-    post 'returnTradeHistory', currencyPair: currency_pair
+  def self.trade_history( currency_pair, start = 0, end_time = Time.now.to_i )
+    post 'returnTradeHistory', currencyPair: currency_pair, start: start, :end => end_time
   end
 
   def self.buy( currency_pair, rate, amount )
@@ -104,7 +119,7 @@ module Poloniex
     post 'generateNewAddress', currency: currency
   end
 
-  def self.deposits_withdrawls( start, end_time )
+  def self.deposits_withdrawls( start = 0, end_time = Time.now.to_i )
     post 'returnDepositsWithdrawals', start: start, :end => end_time
   end
 
