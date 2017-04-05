@@ -46,8 +46,8 @@ module Poloniex
   def self.balances
     post 'returnBalances'
   end
-  
-  def self.lending_history( start = 0, end_time = Time.now_to_i )
+
+  def self.lending_history( start = 0, end_time = Time.now.to_i )
     post 'returnLendingHistory', start: start, :end => end_time
   end
 
