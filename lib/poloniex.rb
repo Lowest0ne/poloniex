@@ -47,8 +47,9 @@ module Poloniex
     post 'returnBalances'
   end
 
-  def self.lending_history( start = 0, end_time = Time.now.to_i )
-    post 'returnLendingHistory', start: start, :end => end_time
+  # with the default of limit 0 at most 500 lending items are returned
+  def self.lending_history( start = 0, end_time = Time.now.to_i, limit = 0 )
+    post 'returnLendingHistory', start: start, :end => end_time, :limit => limit
   end
 
   def self.currencies
