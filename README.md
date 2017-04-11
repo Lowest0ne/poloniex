@@ -36,7 +36,11 @@ GET requests ( to /public ) do not need authentication, and therefor do not need
 
 POST requests ( to /tradingApi ) will need authentication, and you will have to have your own key and secret token.
 
+### Points to be aware when using the API
 
+* By default only the last 500 entries lending_history items since the beginning of the unix timestamp to the current time will be downloaded
+* trade_history will download ever trace since the beginning of the unix timestamp to the current time
+* deposits_withdrawls will download everthing since the beginning of the unix timestamp to the current time
 
 ## Contributing
 
