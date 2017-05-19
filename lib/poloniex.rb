@@ -23,8 +23,12 @@ module Poloniex
     end
   end
 
+  def self.chart_data( currency_pair, period: 86400,  start_date: 0, end_date: Time.now.to_i )
+    get 'returnChartData', currencyPair: currency_pair, period: period,  start: start_date, end: end_date
+  end
+
   def self.get_all_daily_exchange_rates( currency_pair )
-    res = get 'returnChartData', currencyPair: currency_pair, period: 86400,  start: 0, :end => Time.now.to_i
+    chart_data(currency_pair, period: 86400, start_date: 0, end_date: Time.now.to_i)
   end
 
   def self.ticker
@@ -48,7 +52,7 @@ module Poloniex
   end
 
   def self.lending_history( start = 0, end_time = Time.now.to_i )
-    post 'returnLendingHistory', start: start, :end => end_time
+    post 'returnLendingHistory', start: start, end: end_time
   end
 
   def self.currencies
@@ -64,7 +68,7 @@ module Poloniex
   end
 
   def self.trade_history( currency_pair, start = 0, end_time = Time.now.to_i )
-    post 'returnTradeHistory', currencyPair: currency_pair, start: start, :end => end_time
+    post 'returnTradeHistory', currencyPair: currency_pair, start: start, end: end_time
   end
 
   def self.buy( currency_pair, rate, amount )
@@ -120,7 +124,7 @@ module Poloniex
   end
 
   def self.deposits_withdrawls( start = 0, end_time = Time.now.to_i )
-    post 'returnDepositsWithdrawals', start: start, :end => end_time
+    post 'returnDepositsWithdrawals', start: start, end: end_time
   end
 
   protected
