@@ -23,8 +23,12 @@ module Poloniex
     end
   end
 
-  def self.get_all_daily_exchange_rates( currency_pair, period: 86400,  start_date: 0, end_date: Time.now.to_i )
+  def self.chart_data( currency_pair, period: 86400,  start_date: 0, end_date: Time.now.to_i )
     get 'returnChartData', currencyPair: currency_pair, period: period,  start: start_date, end: end_date
+  end
+
+  def self.get_all_daily_exchange_rates( currency_pair )
+    chart_data(currency_pair, period: 86400, start_date: 0, end_date: Time.now.to_i)
   end
 
   def self.ticker
