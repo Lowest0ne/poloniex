@@ -55,6 +55,10 @@ module Poloniex
     get 'returnCurrencies'
   end
 
+  def self.loanOrders(currency)
+    get 'returnLoanOrders', currency: currency
+  end
+
   def self.complete_balances
     post 'returnCompleteBalances'
   end
