@@ -84,7 +84,7 @@ module Poloniex
   end
 
   def self.withdraw( currency, amount, address )
-    post 'widthdraw', currency: currency, amount: amount, address: address
+    post 'withdraw', currency: currency, amount: amount, address: address
   end
 
   def self.available_account_balances
