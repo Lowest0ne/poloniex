@@ -55,8 +55,11 @@ module Poloniex
     get 'returnCurrencies'
   end
 
-  def self.complete_balances
-    post 'returnCompleteBalances'
+  def self.complete_balances all_accounts=false
+    params = {}
+    params[:account] = 'all' if all_accounts
+    
+    post 'returnCompleteBalances', params
   end
 
   def self.open_orders( currency_pair )
@@ -65,6 +68,10 @@ module Poloniex
 
   def self.trade_history( currency_pair, start = 0, end_time = Time.now.to_i )
     post 'returnTradeHistory', currencyPair: currency_pair, start: start, :end => end_time
+  end
+
+  def self.order_trades( order_number )
+    post 'returnOrderTrades', orderNumber: order_number
   end
 
   def self.buy( currency_pair, rate, amount )
@@ -103,12 +110,24 @@ module Poloniex
     post 'returnMarginAccountSummary'
   end
 
-  def self.margin_buy(currency_pair, rate, amount)
-    post 'marginBuy', currencyPair: currency_pair, rate: rate, amount: amount
+  def self.margin_buy(currency_pair, rate, amount, maximum_lending_rate=nil)
+    options = { currencyPair: currency_pair, rate: rate, amount: amount }
+
+    options[:lendingRate] = maximum_lending_rate if maximum_lending_rate
+
+    post 'marginBuy', options
   end
 
-  def self.margin_sell(currency_pair, rate, amount)
-    post 'marginSell', currencyPair: currency_pair, rate: rate, amount: amount
+  def self.margin_sell(currency_pair, rate, amount, maximum_lending_rate=nil)
+    options = { currencyPair: currency_pair, rate: rate, amount: amount }
+
+    options[:lendingRate] = maximum_lending_rate if maximum_lending_rate
+
+    post 'marginSell', options
+  end
+
+  def self.close_margin_position(currency_pair)
+    post 'closeMarginPosition', currencyPair: currency_pair
   end
 
   def self.deposit_addresses
