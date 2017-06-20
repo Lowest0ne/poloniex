@@ -55,8 +55,11 @@ module Poloniex
     get 'returnCurrencies'
   end
 
-  def self.complete_balances
-    post 'returnCompleteBalances'
+  def self.complete_balances all_accounts=false
+    params = {}
+    params[:account] = 'all' if all_accounts
+    
+    post 'returnCompleteBalances', params
   end
 
   def self.open_orders( currency_pair )
