@@ -23,6 +23,10 @@ module Poloniex
     end
   end
 
+  def self.chart_data( currency_pair, start_time, end_time, period)
+    res = get 'returnChartData', currencyPair: currency_pair, period: period,  start: start_time.to_i, :end => end_time.to_i
+  end
+
   def self.get_all_daily_exchange_rates( currency_pair )
     res = get 'returnChartData', currencyPair: currency_pair, period: 86400,  start: 0, :end => Time.now.to_i
   end
