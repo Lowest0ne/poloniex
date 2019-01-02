@@ -43,6 +43,18 @@ module Poloniex
     post 'returnActiveLoans'
   end
 
+  def self.open_loan_offers
+    post 'returnOpenLoanOffers'
+  end
+
+  def self.loan_orders(currency = 'BTC')
+    get 'returnLoanOrders', currency: currency.upcase
+  end
+
+  def self.make_loan_offer(currency, amount, duration, auto_renew, lending_rate)
+    post 'createLoanOffer', currency: currency, amount: amount, duration: duration, autoRenew: auto_renew, lendingRate: lending_rate
+  end
+
   def self.balances
     post 'returnBalances'
   end
