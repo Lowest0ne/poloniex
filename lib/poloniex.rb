@@ -147,9 +147,13 @@ module Poloniex
   end
 
   def self.post( command, params = {} )
-    params[:command] = command
-    params[:nonce]   = (Time.now.to_f * 10000000).to_i
-    resource[ 'tradingApi' ].post params, { Key: configuration.key , Sign: create_sign( params ) }
+    begin 
+      params[:command] = command
+      params[:nonce]   = (Time.now.to_f * 10000000).to_i
+      resource[ 'tradingApi' ].post params, { Key: configuration.key , Sign: create_sign( params ) }
+    rescue RestClient::ExceptionWithResponse => e
+      raise "Error on RestClient: #{e.response.code}, #{e.response}"
+    end
   end
 
   def self.create_sign( data )
