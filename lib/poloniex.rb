@@ -68,7 +68,7 @@ module Poloniex
   end
 
   def self.complete_balances
-    post 'returnCompleteBalances'
+    post 'returnCompleteBalances', account: 'all'
   end
 
   def self.open_orders( currency_pair )
@@ -147,7 +147,7 @@ module Poloniex
   end
 
   def self.post( command, params = {} )
-    begin 
+    begin
       params[:command] = command
       params[:nonce]   = (Time.now.to_f * 10000000).to_i
       resource[ 'tradingApi' ].post params, { Key: configuration.key , Sign: create_sign( params ) }
