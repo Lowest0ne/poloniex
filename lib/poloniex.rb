@@ -43,6 +43,18 @@ module Poloniex
     post 'returnActiveLoans'
   end
 
+  def self.open_loan_offers
+    post 'returnOpenLoanOffers'
+  end
+
+  def self.loan_orders(currency = 'BTC')
+    get 'returnLoanOrders', currency: currency.upcase
+  end
+
+  def self.make_loan_offer(currency, amount, duration, auto_renew, lending_rate)
+    post 'createLoanOffer', currency: currency, amount: amount, duration: duration, autoRenew: auto_renew, lendingRate: lending_rate
+  end
+
   def self.balances
     post 'returnBalances'
   end
@@ -56,7 +68,7 @@ module Poloniex
   end
 
   def self.complete_balances
-    post 'returnCompleteBalances'
+    post 'returnCompleteBalances', account: 'all'
   end
 
   def self.open_orders( currency_pair )
@@ -135,9 +147,13 @@ module Poloniex
   end
 
   def self.post( command, params = {} )
-    params[:command] = command
-    params[:nonce]   = (Time.now.to_f * 10000000).to_i
-    resource[ 'tradingApi' ].post params, { Key: configuration.key , Sign: create_sign( params ) }
+    begin
+      params[:command] = command
+      params[:nonce]   = (Time.now.to_f * 10000000).to_i
+      resource[ 'tradingApi' ].post params, { Key: configuration.key , Sign: create_sign( params ) }
+    rescue RestClient::ExceptionWithResponse => e
+      raise "Error on RestClient: #{e.response.code}, #{e.response}"
+    end
   end
 
   def self.create_sign( data )
